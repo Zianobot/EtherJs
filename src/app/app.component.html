@@ -1,7 +1,6 @@
 
 <div>
   <button (click)="login()">Connettiti</button>
-  <span>{{formattedBalance}}</span>
 </div>
 
 <!--
@@ -21,7 +20,7 @@
 <!-- da qui per la smart auction-->
 <div>
   <h4>Current Price: {{ highestBid }} Eth &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; Auction state : {{ auctionAlreadyEnded ? 'ended' : 'running' }}</h4>
-  <button (click)="fetchCurrentValues()">Fetch Values</button>
+  <button (click)="fetchContractValues()">Fetch Values</button>
   <p>
     <input [(ngModel)]="amount" type="number" placeholder="Amount in ETH">
   </p>
