@@ -4,6 +4,7 @@
   <span>{{formattedBalance}}</span>
 </div>
 
+<!--
 <div>
   <button (click)="modifyContract() ">Aggiorna Dato</button>
 </div>
@@ -11,10 +12,28 @@
 <div>
   <button (click)="readContract() ">Leggi</button>
 </div>
+-->
 
 <div>
   <button (click)="showAddress() ">Show Address</button>
     <span *ngIf="show">{{ userAddress }}</span>
 </div> 
+<!-- da qui per la smart auction-->
+<div>
+  <h4>Current Price: {{ highestBid }} Eth &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; Auction state : {{ auctionAlreadyEnded ? 'ended' : 'running' }}</h4>
+  <button (click)="fetchCurrentValues()">Fetch Values</button>
+  <p>
+    <input [(ngModel)]="amount" type="number" placeholder="Amount in ETH">
+  </p>
+  <p>
+    <button (click)="bid()"> Bid </button>
+  </p>
+</div>
+
+<div>
+  <button (click)="withdraw()">Withdraw</button>
+  <button (click)="endAuction()">End</button>
+</div>
+
 
 <router-outlet></router-outlet>
