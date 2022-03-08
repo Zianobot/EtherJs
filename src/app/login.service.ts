@@ -9,10 +9,9 @@ declare const window: any;
 })
 export class LoginService {
 
-  provider: any;
-  signer: any;
-  
-  userAddress: any;
+  public provider: any;
+  public signer: any; 
+  public userAddress: any;
  
   constructor() { }
 
