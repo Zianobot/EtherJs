@@ -46,19 +46,20 @@ contract SmartAuction {
         highestBid = msg.value; 
         highestBidder = msg.sender;
 
-        emit HighestBidIncreased(highestBidder, highestBid);
+        emit HighestBidIncreased(msg.sender, msg.value);
     }
 
     //bisogna stare attenti al problema della reentrancy, uno smart contract potrebbe interagire con il nostro in modo malevolo per rubare soldi, se non settiamo 
     //subito a zero il pendingReturns dell'indirizzo che ha chiesto il withdraw rischiamo che questo lo continui a fare finchè non ci svuota lo smart contract
     //quindi è meglio fare un'operazione in più nel caso non vada a buon fine e risettarla come prima della richiesta di withdraw
+  
     function withdraw() public  payable returns (bool) {
         uint amount = pendingReturns[msg.sender]; 
 
         if(amount > 0) {
             pendingReturns[msg.sender] = 0;
             //trasferisco gli eth dal contratto all'indirizzo di chi chiede il withdraw, se non va a buon fine devo reincrementarlo nel contratto quindi nel mapping
-            if(!payable(msg.sender).send(amount)){
+            if(!(payable(msg.sender).send(amount))){
                 pendingReturns[msg.sender] = amount;
                 return false;
             }
