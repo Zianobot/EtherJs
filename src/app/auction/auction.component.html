@@ -1,0 +1,15 @@
+<div>
+    <h4>Current Price: {{ highestBid }} Eth &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; Auction state : {{ auctionAlreadyEnded ? 'ended' : 'running' }}</h4>
+    <button (click)="fetchContractValues()">Fetch Values</button>
+    <p>
+      <input [(ngModel)]="amount" type="number" placeholder="Amount in ETH">
+    </p>
+    <p>
+      <button (click)="bid()"> Bid </button>
+    </p>
+  </div>
+  
+  <div>
+    <button (click)="withdraw()">Withdraw</button>
+    <button (click)="endAuction()">End</button>
+  </div>
