@@ -1,4 +1,28 @@
-<div>
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-md-auto">
+        <h1 class="display-6">
+          Apple MacBook Pro 2022
+        </h1>
+  </div>
+  <div class="row pt-3">
+    <div class="col-4">
+      <div class="description">
+      Vendo nuovissimo MacBook con pochi mesi vita.
+        <ul>
+          <li>Processore M1 Max</li>
+          <li>16 Gb di ram</li>
+          <li>512Gb di hard disk</li>
+        </ul>
+      </div>  
+    </div>
+    <div class="col-8">
+        {{auctionTimeEnd}}
+    </div>
+  </div>
+  <div>
+
     <h4>Current Price: {{ highestBid }} Eth &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; Auction state : {{ auctionAlreadyEnded ? 'ended' : 'running' }}</h4>
     <button (click)="fetchContractValues()">Fetch Values</button>
     <p>
@@ -8,8 +32,9 @@
       <button (click)="bid()"> Bid </button>
     </p>
   </div>
-  
   <div>
     <button (click)="withdraw()">Withdraw</button>
     <button (click)="endAuction()">End</button>
+
   </div>
+</div>

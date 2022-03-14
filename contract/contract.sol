@@ -13,7 +13,7 @@ contract SmartAuction {
     address public highestBidder;
     uint public highestBid;
 
-    uint private secondsInMinute = 60;
+    //uint private secondsInMinute = 60;
 
     //fare il map di una coppia chiave valore, gli passo i tipi su cui bisogna fare il map
     mapping(address => uint ) pendingReturns;
@@ -28,7 +28,7 @@ contract SmartAuction {
     constructor(uint _biddingTime) {
         //imposto il beneficiario in base a chi fa il deploy del contratto
         beneficiary = payable(msg.sender); 
-        auctionEnd = block.timestamp + (_biddingTime * secondsInMinute);
+        auctionEnd = block.timestamp + (_biddingTime * 1 days);
     }
 
     //payable significa che è possibile inviare eth a questa funzione
@@ -74,6 +74,8 @@ contract SmartAuction {
         require(!ended, "endAuction was called");
 
         ended = true;
+        //fare un ciclo for e trasferisci i soldi anche agli altri indirizzi che hanno partecipato salvando gli address su un array
+        //stare attenti al pendingReturn all'address dell'highestBidder
         beneficiary.transfer(highestBid); 
 
         emit AuctionEnded(highestBidder, highestBid);
@@ -81,6 +83,10 @@ contract SmartAuction {
 
     function auctionAlreadyEnded() public view returns (bool) {
         return ended;
+    }
+
+    function getTimeOfEnd() public view returns (uint) {
+        return auctionEnd;
     }
 
 }
