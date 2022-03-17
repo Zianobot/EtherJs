@@ -35,12 +35,12 @@ export class LoginService {
     // For this, you need the account signer...
     const accounts = await this.getAccounts().catch( (e:any) => {
       console.error(e.messagge);
-      return;
+      return false;
     })
 
     if(!accounts){
       alert('No address found');
-      return;
+      return false;
     }
 
     this.signer = this.provider.getSigner();
@@ -49,6 +49,7 @@ export class LoginService {
     this.userAddress.next(address);
     this.isUserLoggedIn.next(true);
     console.log(this.userAddress.value);
+    return true;
   }
 
   public Provider() {

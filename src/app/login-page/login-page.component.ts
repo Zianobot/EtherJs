@@ -15,8 +15,14 @@ export class LoginPageComponent implements OnInit {
   }
 
   async login() {
-    await this.loginService.loginWithMetamask();
-    this.router.navigate(['home/auction']); 
+    try {
+      let success = await this.loginService.loginWithMetamask();
+      if(success){
+        this.router.navigate(['home/auction']);
+      }
+    } catch(e) {
+      console.log(e);
+    }
     //this.balance = await this.loginService.provider.getBalance();
     //this.formattedBalance = ethers.utils.formatEther(this.balance);
   }

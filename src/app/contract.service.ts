@@ -25,7 +25,7 @@ export class ContractService {
       this.auctionAlreadyEnded = await this.smartAuction.auctionAlreadyEnded();
     } catch(ex) {
       console.error("exeption while fetching current values", ex);
-      alert('You have to connect your wallet');
+      alert('Devi connetterti sulla rete Ethereum');
     }
   }
 
@@ -73,8 +73,8 @@ export class ContractService {
       this.smartAuction = new ethers.Contract(this.contractAddress, this.contractAbi, this.loginService.Provider());
       return await this.smartAuction.getTimeOfEnd();
     } catch (ex) {
-      console.error("exeption while ending auction", ex);
-      alert('Auction not ended');
+      console.error("exeption while fetching values", ex);
+      alert('Devi connetterti con un portafoglio Ethereum se vuoi interagire con lo smart contract');
     }
     return;
   }
