@@ -18,6 +18,14 @@ contract SmartAuction {
     //fare il map di una coppia chiave valore, gli passo i tipi su cui bisogna fare il map
     mapping(address => uint ) pendingReturns;
 
+    //struct per tutte le offerte 
+    struct Offer {
+        address maker;
+        uint amount;
+    }
+    
+    Offer[] offers;
+
     bool ended;
 
     //quando si verifica una determinata condizione si chiama l'evento
@@ -45,6 +53,9 @@ contract SmartAuction {
             pendingReturns[highestBidder] += highestBid;
         }
 
+        Offer memory offer = Offer(msg.sender, msg.value);
+        offers.push(offer);
+
         highestBid = msg.value; 
         highestBidder = msg.sender;
 
@@ -56,6 +67,8 @@ contract SmartAuction {
     //quindi è meglio fare un'operazione in più nel caso non vada a buon fine e risettarla come prima della richiesta di withdraw
   
     function withdraw() public  payable returns (bool) {
+        require(msg.sender != highestBidder, "You can't withdraw if you are the highest bidder");
+        
         uint amount = pendingReturns[msg.sender]; 
 
         if(amount > 0) {
@@ -77,6 +90,7 @@ contract SmartAuction {
         //fare un ciclo for e trasferisci i soldi anche agli altri indirizzi che hanno partecipato salvando gli address su un array
         //stare attenti al pendingReturn all'address dell'highestBidder
         beneficiary.transfer(highestBid); 
+        pendingReturns[highestBidder] = 0;
 
         emit AuctionEnded(highestBidder, highestBid);
     }
@@ -87,6 +101,10 @@ contract SmartAuction {
 
     function getTimeOfEnd() public view returns (uint) {
         return auctionEnd;
+    }
+
+    function getOffers() public view returns(Offer[] memory){
+        return offers;
     }
 
 }
